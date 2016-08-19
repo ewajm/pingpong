@@ -12,8 +12,8 @@
     <div class="container nethackMode">
       <h1>Let's Nethack!</h1>
       <p>You've found the Wizard of Yendor!</p>
-      <p>The Wizard of Yendor can only be attacked with scrolls. Choose a scroll:</P>
-      <form id="inputForm" class="form-inline">
+      <p class = "hideOnAttack">The Wizard of Yendor can only be attacked with scrolls. Choose a scroll:</P>
+      <form id="inputForm" class="hideOnAttack form-inline">
         <div class="form-group">
           <label for="wordSelect" id="wordSelectLabel">Scroll Labeled</label>
           <select id="wordSelect" class="form-control">
@@ -26,7 +26,7 @@
         <button type="submit" class="btn btn-primary">Attack!</button>
         <button id="clear" class="btn btn-primary">Clear</button>
       </form>
-      <div id="result">
+      <div id="result" class="normalResult">
       </div>
       <div id="nethackDisplay">
         <p class="nethackRoom">----------------------------<br>

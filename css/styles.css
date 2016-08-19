@@ -1,3 +1,50 @@
 body {
-  
+  background-color: #d0b783;
+  text-align: center;
+}
+
+h1 {
+  color: #6C272E;
+}
+
+div#result{
+  padding: 2rem;
+  background-color:	#e1e9b7;
+  margin: 2rem;
+  border-radius: 5px;
+  display: none;
+}
+
+span.output {
+  padding: 5px;
+  margin: 5px 3px;
+  display: inline-block;
+  border-radius: 5px;
+  width: 100px;
+}
+
+span.number{
+  background-color: #bcd2d0;
+}
+
+span.silly{
+  background-color: #f96161;
+  color: #fff;
+}
+
+/******* Media Queries *******/
+
+@media screen and (min-width: 768px) {
+
+  .container {
+    background-color: #d0b783;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    border-radius: 5px;
+  }
+
+  body {
+    background-color: #e5c3c6;
+  }
+
 }

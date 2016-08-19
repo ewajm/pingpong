@@ -1,6 +1,5 @@
 //<!-- Back End -->
 var checkNum = function(number, sillyWords){
-  console.log("this is " + sillyWords);
   if(number % 15 === 0){
     return sillyWords[0] + sillyWords[1];
   } else if(number % 5 === 0){
@@ -37,19 +36,29 @@ $(document).ready(function(){
   }
   //process basic ping pong form
   $("form#inputForm").submit(function(event){
+    $("div#result span").remove();
+    $("div#result").hide();
     event.preventDefault();
     var topNum = parseInt($("input#numInput").val());
     var sillyWordIndex = parseInt($("select#sillyWord").val());
     var outputArray = pingPong(topNum, sillyWordArray[sillyWordIndex]);
     for(var i = 0; i < outputArray.length; i++){
-      $("div#result p").append(outputArray[i] + " ");
+      var resultClass;
+      if(!parseInt(outputArray[i])) {
+        resultClass = "silly"
+      } else {
+        resultClass = "number"
+      }
+      $("div#result").append("<span class='output " + resultClass + " '>" + outputArray[i] + "<span>");
     }
+    $("div#result").show();
   });
 
   $("#clear").click(function(event){
     event.preventDefault();
     $("form#inputForm")[0].reset();
-    $("div#result p").text('');
+    $("div#result span").remove();
+    $("div#result").hide();
   });
 
 });

@@ -2,7 +2,11 @@
 var pingPong = function(topNum){
   var pingPongArray =[];
   for(var i = 1; i <= topNum; i++){
+    if(i % 3 === 0){
+      pingPongArray.push("ping");
+    } else {
     pingPongArray.push(i);
+    }
   }
   return pingPongArray;
 };

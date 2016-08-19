@@ -38,15 +38,12 @@ span.silly{
   background-color: black;
   color: white;
   text-align: left;
+  font-family: monospace;
 }
 
 .nethackRoom {
   font-family: monospace;
   text-align: center;
-}
-
-.nethackStats {
-  font-family: monospace;
 }
 
 .water {

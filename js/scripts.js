@@ -28,21 +28,19 @@ var pingPong = function(topNum, sillyWords){
 
 //<!-- Front End  -->
 $(document).ready(function(){
-
+  var nethackToggle = false;
   var sillyWordArray = [["ping", "pong"], ["fiddle", "faddle"], ["hoity", "toity"], ["hunky", "dory"], ["boogie", "woogie"], ["jiggery", "pokery"]];
   var scrollArray = [["ZELGO", "MER"], ["DAIYEN", "FOOELS"], ["ELBIB", "YLOH"], ["VENZAR", "BORGAVVE"], ["KERNOD", "WEL"], ["ELAM", "EBOW"], ["DUAM", "XNAHT"], ["HACKEM", "MUCHE"], ["VELOX","NEB"], ["FOOBIE", "BLETCH"], ["GARVEN", "DEH"]];
   //create select box
-  for(var i = 0; i < sillyWordArray.length; i++){
-    $("select#sillyWord").append("<option value='" + i + "'>" + sillyWordArray[i][0] + " " + sillyWordArray[i][1] + "</option>");
-  }
+  generateSelect(scrollArray);
   //process basic ping pong form
   $("form#inputForm").submit(function(event){
     $("div#result span").remove();
     $("div#result").hide();
     event.preventDefault();
     var topNum = parseInt($("input#numInput").val());
-    var sillyWordIndex = parseInt($("select#sillyWord").val());
-    var outputArray = pingPong(topNum, sillyWordArray[sillyWordIndex]);
+    var wordsIndex = parseInt($("select#wordSelect").val());
+    var outputArray = pingPong(topNum, scrollArray[wordsIndex]);
     for(var i = 0; i < outputArray.length; i++){
       var resultClass;
       if(!parseInt(outputArray[i])) {
@@ -58,8 +56,14 @@ $(document).ready(function(){
   $("#clear").click(function(event){
     event.preventDefault();
     $("form#inputForm")[0].reset();
-    $("div#result span").remove();
+    $("div#result").empty();
     $("div#result").hide();
   });
+
+  function generateSelect(array){
+    for(i = 0; i < array.length; i++){
+      $("select#wordSelect").append("<option value='" + i + "'>" + array[i][0] + " " + array[i][1] + "</option>");
+    }
+  }
 
 });

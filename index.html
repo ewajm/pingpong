@@ -15,8 +15,8 @@
       <p>The Wizard of Yendor can only be attacked with scrolls. Choose a scroll:</P>
       <form id="inputForm" class="form-inline">
         <div class="form-group">
-          <label for="sillyWord" id="sillyWordLabel">Scroll</span></label>
-          <select id="sillyWord" class="form-control">
+          <label for="wordSelect" id="wordSelectLabel">Scroll Labeled</label>
+          <select id="wordSelect" class="form-control">
           </select>
         </div>
         <div class="form-group">
@@ -26,10 +26,12 @@
         <button type="submit" class="btn btn-primary">Attack!</button>
         <button id="clear" class="btn btn-primary">Clear</button>
       </form>
+      <div id="result">
+      </div>
       <div id="nethackDisplay">
         <p class="nethackRoom">----------------------------<br>
            |..........................|<br>
-           |......<span class="water">{{{{{{{}}}}}}}</span>......|<br>
+           |..>...<span class="water">{{{{{{{}}}}}}}</span>......|<br>
            |......<span class="water">{{{</span>........<span class="water">}}}</span>......|<br>
            |......<span class="water">{{</span>..........<span class="water">}}</span>......|<br>
            |......<span class="water">{{</span>..<span id="player">@</span>....<span id="wizard">@</span>..<span class="water">}}</span>......|<br>
@@ -43,8 +45,7 @@
              Dlvl:Intro Week:3 $:0 HP:<span id="hitPoints">10</span>(10) AC:0
            </p>
       </div>
-      <div id="result">
-      </div>
+
       <div id="nethack">
         <p>I am so confused take me back to the other thing</p>
       </div>

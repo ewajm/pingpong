@@ -12,6 +12,10 @@ The program counts up to the provided number:
 * Example Input: 2
 * Example Output: [1, 2]
 
+The program counts down to the negative number from -1 if number is negative:
+* Example Input: -2
+* Example Output: [-1, -2]
+
 The program replaces numbers divisible by 3 with ping:
 * Example Input: 3
 * Example Output: [1, 2, ping]

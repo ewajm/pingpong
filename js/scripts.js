@@ -1,6 +1,5 @@
 //<!-- Back End -->
 
-
 var checkNum = function(number, sillyWords){
   if(number % 15 === 0){
     return sillyWords[0] + sillyWords[1];
@@ -60,11 +59,10 @@ $(document).ready(function(){
   generateSelect(sillyWordArray);
   //process basic ping pong form
   $("form#inputForm").submit(function(event){
-    $("div#result span").remove();
-    $("div#result").hide();
     event.preventDefault();
     var topNum = parseInt($("input#numInput").val());
     var wordsIndex = parseInt($("select#wordSelect").val());
+    clear();
     var outputArray;
     if(nethackToggle){
       outputArray = pingPong(topNum, scrollArray[wordsIndex]);
@@ -81,35 +79,23 @@ $(document).ready(function(){
     clear();
   });
 
-  function clear(){
-    $("form#inputForm")[0].reset();
-    $("div#result").empty().hide();
-    $("#wizard, #player").text("@");
-  }
-
   $("#displaySwitch").click(function(){
     nethackToggle = !nethackToggle;
-    $("body, #result").removeClass();
+    var displayArray=[["Let's Ping Pong!", "Let's Nethack!"],["Choose your words", "Scroll Labeled"], [sillyWordArray, scrollArray]];
+    var displayIndex = (nethackToggle ? 1 : 0);
+    $("body").toggleClass("nethackMode");
+    $(".container").toggleClass("regularMode");
+    $("#result").toggleClass("nethackResult normalResult");
+    $(".nethack").toggle();
     $("select").empty();
+    $("h1").text(displayArray[0][displayIndex]);
+    $("#wordSelectLabel").text(displayArray[1][displayIndex]);
+    generateSelect(displayArray[2][displayIndex]);
     clear();
     if(nethackToggle){
       hitPoints =10;
       var playerName = prompt("What is your name?");
       $("#playerName").text(playerName + " the CodeWizard");
-      $(".container").removeClass("regularMode")
-      $("body").addClass("nethackMode");
-      $("h1").text("Let's Nethack!")
-      $(".nethack").show();
-      $("#wordSelectLabel").text("Scroll Labeled");
-      $("#result").addClass("nethackResult");
-      generateSelect(scrollArray);
-    } else {
-      $(".container").addClass("regularMode");
-      $("h1").text("Let's Ping Pong!")
-      $(".nethack").hide();
-      $("#wordSelectLabel").text("Choose your words");
-      $("#result").addClass("normalResult");
-      generateSelect(sillyWordArray);
     }
   });
 
@@ -119,44 +105,10 @@ $(document).ready(function(){
     }
   }
 
-  function createNethackDisplay(array){
-    var htmlString = '<p>You read "';
-    for(var i = 0; i < array.length; i++){
-      if(i > 0){
-        htmlString+= " ";
-      }
-      htmlString += (array[i]);
-    }
-    htmlString += '" <button id="more" class="btn btn-default">More</button></p>';
-    $("#result").append(htmlString);
-    $("#more").click(function(){
-      var outcome = getNethackOutcome();
-      var outcomeString = "<p>" + outcome[0];
-      if(outcome[1]){
-        outcomeString += "<br>The wizard dies. You have defeated the Wizard of Yendor! Congratulations!";
-        $("#wizard").text("%");
-        hitPoints = 10;
-      } else {
-        if(wizardTurn){
-          outcomeString += "<br>The wizard hits!";
-          hitPoints--;
-          if(hitPoints === 0){
-            outcomeString += "You died.";
-            $("#player").text("%");
-          }
-        } else {
-          outcomeString += "<br>The wizard misses!";
-        }
-      }
-      $("#hitPoints").text(hitPoints);
-      outcomeString +="</p><button id='again' class='btn btn-default'>Try again</button>";
-      $("div#result").empty().html(outcomeString);
-      $("#again").click(function(){
-        clear();
-        $(".hideOnAttack").show();
-      });
-    });
-    $(".hideOnAttack").hide();
+  function clear(){
+    $("form#inputForm")[0].reset();
+    $("div#result").empty().hide();
+    $("#wizard, #player").text("@");
   }
 
   function createRegularDisplay(array){
@@ -171,4 +123,46 @@ $(document).ready(function(){
     }
   }
 
+  function createNethackDisplay(array){
+    var htmlString = '<p>You read "';
+    for(var i = 0; i < array.length; i++){
+      if(i > 0){
+        htmlString+= " ";
+      }
+      htmlString += (array[i]);
+    }
+    htmlString += '"</p> <button id="more" class="btn btn-default">More</button>';
+    $("#result").append(htmlString);
+    $(".hideOnAttack").hide();
+    $("#more").click(processNethackOutcome);
+  }
+
+  //gets outcome from back end and processes it for display in front - runs on button click from result display
+  function processNethackOutcome(){
+    var outcome = getNethackOutcome();
+    var outcomeString = "<p>" + outcome[0];
+    if(outcome[1]){
+      outcomeString += "<br>The wizard dies. You have defeated the Wizard of Yendor! Congratulations!";
+      $("#wizard").text("%");
+      hitPoints = 10;
+    } else {
+      if(wizardTurn){
+        outcomeString += "<br>The wizard hits!";
+        hitPoints--;
+        if(hitPoints === 0){
+          outcomeString += "You died.";
+          $("#player").text("%");
+        }
+      } else {
+        outcomeString += "<br>The wizard misses!";
+      }
+    }
+    $("#hitPoints").text(hitPoints);
+    outcomeString +="</p><button id='again' class='btn btn-default'>Try again</button>";
+    $("div#result").empty().html(outcomeString);
+    $("#again").click(function(){
+      clear();
+      $(".hideOnAttack").show();
+    });
+  }
 });

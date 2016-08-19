@@ -19,7 +19,7 @@ var pingPong = function(topNum){
 $(document).ready(function(){
   $("form#inputForm").submit(function(event){
     event.preventDefault();
-    var topNum = $("input#input").val();
+    var topNum = parseInt($("input#input").val());
     $("div#result").text(pingPong(topNum));
   });
 });

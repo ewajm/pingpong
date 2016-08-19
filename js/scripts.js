@@ -15,7 +15,15 @@ var pingPong = function(topNum){
     }
   } else {
     for(var i = -1; i >= topNum; i--){
-      pingPongArray.push(i);
+      if(i % 15 === 0){
+        pingPongArray.push("pingpong");
+      } else if(i % 5 === 0){
+        pingPongArray.push("pong");
+      } else if(i % 3 === 0){
+        pingPongArray.push("ping");
+      } else {
+        pingPongArray.push(i);
+      }
     }
   }
   return pingPongArray;

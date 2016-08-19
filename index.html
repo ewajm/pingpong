@@ -26,7 +26,7 @@
         <button type="submit" class="btn btn-primary">Attack!</button>
         <button id="clear" class="btn btn-primary">Clear</button>
       </form>
-      <div>
+      <div id="nethackDisplay">
         <p class="nethackRoom">----------------------------<br>
            |..........................|<br>
            |......<span class="water">{{{{{{{}}}}}}}</span>......|<br>
@@ -38,12 +38,15 @@
            |......<span class="water">{{{{{{{}}}}}}}</span>......|<br>
            |..........................|<br>
            ----------------------------</p>
-           <p class="nethackStats"></p>
+           <p class="nethackStats">
+             <span id="userName">Name the CodeWizard</span> St:12 Dx:12 Co:16 In:25 Ch:8 Neutral <br>
+             Dlvl:Intro Week:3 $:0 HP:<span id="hitPoints">10</span>(10) AC:0
+           </p>
       </div>
       <div id="result">
       </div>
       <div id="nethack">
-        <p>Or how about something a little different</p>
+        <p>I am so confused take me back to the other thing</p>
       </div>
     </div>
   </body>

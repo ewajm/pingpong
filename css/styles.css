@@ -45,12 +45,21 @@ span.silly{
   text-align: center;
 }
 
-#wizard {
-  color: magenta;
+.nethackStats {
+  font-family: monospace;
 }
 
 .water {
   color: blue;
+}
+
+#wizard {
+  color: magenta;
+}
+
+#nethackDisplay {
+  width: 50%;
+  margin: 0 auto;
 }
 
 /******* Media Queries *******/

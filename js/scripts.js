@@ -40,13 +40,16 @@ $(document).ready(function(){
     event.preventDefault();
     var topNum = parseInt($("input#numInput").val());
     var sillyWordIndex = parseInt($("select#sillyWord").val());
-    $("div#result").text(pingPong(topNum, sillyWordArray[sillyWordIndex]));
+    var outputArray = pingPong(topNum, sillyWordArray[sillyWordIndex]);
+    for(var i = 0; i < outputArray.length; i++){
+      $("div#result p").append(outputArray[i] + " ");
+    }
   });
 
   $("#clear").click(function(event){
     event.preventDefault();
     $("form#inputForm")[0].reset();
-    $("div#result").text('');
+    $("div#result p").text('');
   });
 
 });

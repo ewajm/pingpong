@@ -4,7 +4,7 @@
 
 ## Description
 
-_A webpage that counts up to a user input number will outputting the number, 'ping' or 'pong'_
+_A webpage that counts up to a user input number while outputting the number, 'ping' or 'pong'_
 
 ### Specs
 

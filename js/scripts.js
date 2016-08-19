@@ -51,11 +51,13 @@ var getNethackOutcome = function(){
 //<!-- Front End  -->
 $(document).ready(function(){
   var nethackToggle = false;
-  var hitPoints = 10;
+  var hitPoints;
+  //original array
   var sillyWordArray = [["ping", "pong"], ["fiddle", "faddle"], ["hoity", "toity"], ["hunky", "dory"], ["boogie", "woogie"], ["jiggery", "pokery"]];
+  //scroll array for nethack
   var scrollArray = [["ZELGO", "MER"], ["DAIYEN", "FOOELS"], ["ELBIB", "YLOH"], ["VENZAR", "BORGAVVE"], ["KERNOD", "WEL"], ["ELAM", "EBOW"], ["DUAM", "XNAHT"], ["HACKEM", "MUCHE"], ["VELOX","NEB"], ["FOOBIE", "BLETCH"], ["GARVEN", "DEH"]];
   //create select box
-  generateSelect(scrollArray);
+  generateSelect(sillyWordArray);
   //process basic ping pong form
   $("form#inputForm").submit(function(event){
     $("div#result span").remove();
@@ -63,16 +65,52 @@ $(document).ready(function(){
     event.preventDefault();
     var topNum = parseInt($("input#numInput").val());
     var wordsIndex = parseInt($("select#wordSelect").val());
-    var outputArray = pingPong(topNum, scrollArray[wordsIndex]);
-    createNethackDisplay(outputArray);
+    var outputArray;
+    if(nethackToggle){
+      outputArray = pingPong(topNum, scrollArray[wordsIndex]);
+      createNethackDisplay(outputArray);
+    } else {
+      outputArray = pingPong(topNum, sillyWordArray[wordsIndex]);
+      createRegularDisplay(outputArray);
+    }
     $("div#result").show();
   });
 
   $("#clear").click(function(event){
     event.preventDefault();
+    clear();
+  });
+
+  function clear(){
     $("form#inputForm")[0].reset();
-    $("div#result").empty();
-    $("div#result").hide();
+    $("div#result").empty().hide();
+    $("#wizard, #player").text("@");
+  }
+
+  $("#displaySwitch").click(function(){
+    nethackToggle = !nethackToggle;
+    $("body, #result").removeClass();
+    $("select").empty();
+    clear();
+    if(nethackToggle){
+      hitPoints =10;
+      var playerName = prompt("What is your name?");
+      $("#playerName").text(playerName + " the CodeWizard");
+      $(".container").removeClass("regularMode")
+      $("body").addClass("nethackMode");
+      $("h1").text("Let's Nethack!")
+      $(".nethack").show();
+      $("#wordSelectLabel").text("Scroll Labeled");
+      $("#result").addClass("nethackResult");
+      generateSelect(scrollArray);
+    } else {
+      $(".container").addClass("regularMode");
+      $("h1").text("Let's Ping Pong!")
+      $(".nethack").hide();
+      $("#wordSelectLabel").text("Choose your words");
+      $("#result").addClass("normalResult");
+      generateSelect(sillyWordArray);
+    }
   });
 
   function generateSelect(array){
@@ -90,13 +128,12 @@ $(document).ready(function(){
       htmlString += (array[i]);
     }
     htmlString += '" <button id="more" class="btn btn-default">More</button></p>';
-    $("#result").addClass("nethackResult").removeClass("normalResult").append(htmlString);
-    $("#more").click(function(event){
-      event.preventDefault();
+    $("#result").append(htmlString);
+    $("#more").click(function(){
       var outcome = getNethackOutcome();
       var outcomeString = "<p>" + outcome[0];
       if(outcome[1]){
-        outcomeString += "<br>The wizard dies. You have defeated the Wizard of Yendor! Congratulations! Not that he has the Amulet of Yendor, of course, but still, good job.";
+        outcomeString += "<br>The wizard dies. You have defeated the Wizard of Yendor! Congratulations!";
         $("#wizard").text("%");
         hitPoints = 10;
       } else {
@@ -114,26 +151,23 @@ $(document).ready(function(){
       $("#hitPoints").text(hitPoints);
       outcomeString +="</p><button id='again' class='btn btn-default'>Try again</button>";
       $("div#result").empty().html(outcomeString);
-      $("#again").click(function(event){
-        event.preventDefault();
-        $("div#result").empty().hide();
-        $("form#inputForm")[0].reset()
+      $("#again").click(function(){
+        clear();
         $(".hideOnAttack").show();
-        $("#wizard, #player").text("@");
       });
     });
     $(".hideOnAttack").hide();
   }
 
   function createRegularDisplay(array){
-    for(var i = 0; i < outputArray.length; i++){
+    for(var i = 0; i < array.length; i++){
       var resultClass;
-      if(!parseInt(outputArray[i])) {
+      if(!parseInt(array[i])) {
         resultClass = "silly"
       } else {
         resultClass = "number"
       }
-      $("div#result").append("<span class='output " + resultClass + " '>" + outputArray[i] + "<span>");
+      $("div#result").append("<span class='output " + resultClass + " '>" + array[i] + "<span>");
     }
   }
 

@@ -3,6 +3,17 @@ body {
   text-align: center;
 }
 
+#displaySwitch {
+  margin: 2rem auto;
+  display: block;
+}
+
+.nethack {
+  display: none;
+}
+
+/*****regular mode specific ****/
+
 .regularMode {
   background-color: #d0b783;
   color: #6C272E;
@@ -61,10 +72,6 @@ span.silly{
 
 .nethackResult: {
   color: white;
-}
-
-.indent {
-  padding-left: 3rem;
 }
 
 /******* Media Queries *******/

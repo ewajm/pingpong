@@ -6,16 +6,16 @@
     <script src='js/jquery-3.1.0.js'></script>
     <script src='js/bootstrap.min.js' type='text/javascript'></script>
     <script src='js/scripts.js'></script>
-    <title>Ping Pong</title>
+    <title>Fun with Word Flip-Flop</title>
   </head>
-  <body class="nethackMode">
-    <div class="container nethackMode">
-      <h1>Let's Nethack!</h1>
-      <p class= "hideOnAttack">You've found the Wizard of Yendor!</p>
-      <p class = "hideOnAttack">The Wizard of Yendor can only be attacked with scrolls. Choose a scroll:</P>
+  <body class>
+    <div class="regularMode container">
+      <h1>Let's Ping Pong!</h1>
+      <p class= "nethack hideOnAttack">You've found the Wizard of Yendor!</p>
+      <p class = "nethack hideOnAttack">The Wizard of Yendor can only be attacked with scrolls. Choose a scroll:</P>
       <form id="inputForm" class="hideOnAttack form-inline">
         <div class="form-group">
-          <label for="wordSelect" id="wordSelectLabel">Scroll Labeled</label>
+          <label for="wordSelect" id="wordSelectLabel">Choose your words:</label>
           <select id="wordSelect" class="form-control">
           </select>
         </div>
@@ -23,12 +23,12 @@
           <label for="numInput">Number:</label>
           <input id="numInput" class="form-control" type="number" required>
         </div>
-        <button type="submit" class="btn btn-primary">Attack!</button>
-        <button id="clear" class="btn btn-primary">Clear</button>
+        <button type="submit" class="btn btn-primary">Onwards!</button>
+        <button id="clear" class="btn btn-danger">Clear</button>
       </form>
       <div id="result" class="normalResult">
       </div>
-      <div id="nethackDisplay">
+      <div id="nethackDisplay" class="nethack">
         <p class="nethackRoom">----------------------------<br>
            |..........................|<br>
            |..>...<span class="water">{{{{{{{}}}}}}}</span>......|<br>
@@ -41,14 +41,11 @@
            |..........................|<br>
            ----------------------------</p>
            <p class="nethackStats">
-             <span id="userName">Name the CodeWizard</span> St:12 Dx:12 Co:16 In:25 Ch:8 Neutral <br>
+             <span id="playerName">Name the CodeWizard</span> St:12 Dx:12 Co:16 In:25 Ch:8 Neutral <br>
              Dlvl:Intro Week:3 $:0 HP:<span id="hitPoints">10</span>(10) AC:0
            </p>
       </div>
-
-      <div id="nethack">
-        <p>I am so confused take me back to the other thing</p>
-      </div>
+      <button id="displaySwitch" class = "btn btn-default">Ready to try something different?</button>
     </div>
   </body>
 </html>

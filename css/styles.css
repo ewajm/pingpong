@@ -3,7 +3,8 @@ body {
   text-align: center;
 }
 
-h1 {
+.regularMode {
+  background-color: #d0b783;
   color: #6C272E;
 }
 
@@ -32,12 +33,31 @@ span.silly{
   color: #fff;
 }
 
+/***** Nethack Mode specific *******/
+.nethackMode {
+  background-color: black;
+  color: white;
+  text-align: left;
+}
+
+.nethackRoom {
+  font-family: monospace;
+  text-align: center;
+}
+
+#wizard {
+  color: violet;
+}
+
+.water {
+  color: blue;
+}
+
 /******* Media Queries *******/
 
 @media screen and (min-width: 768px) {
 
   .container {
-    background-color: #d0b783;
     margin-top: 2rem;
     margin-bottom: 2rem;
     border-radius: 5px;

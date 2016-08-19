@@ -8,9 +8,10 @@
     <script src='js/scripts.js'></script>
     <title>Ping Pong</title>
   </head>
-  <body>
-    <div class="container">
-      <h1>Let's Ping Pong!</h1>
+  <body class="nethackMode">
+    <div class="container nethackMode">
+      <h1>Let's Nethack!</h1>
+
       <form id="inputForm" class="form-inline">
         <div class="form-group">
           <label for="numInput">Enter a number:</label>
@@ -24,6 +25,20 @@
         <button type="submit" class="btn btn-primary">Game on!</button>
         <button id="clear" class="btn btn-primary">Clear</button>
       </form>
+      <div>
+        <p class="nethackRoom">----------------------------<br>
+           |..........................|<br>
+           |......<span class="water">{{{{{{{}}}}}}}</span>......|<br>
+           |......<span class="water">{{{</span>........<span class="water">}}}</span>......|<br>
+           |......<span class="water">{{</span>..........<span class="water">}}</span>......|<br>
+           |......<span class="water">{{</span>..<span id="player">@</span>....<span id="wizard">@</span>..<span class="water">}}</span>......|<br>
+           |......<span class="water">{{</span>..........<span class="water">}}</span>......|<br>
+           |......<span class="water">{{{</span>........<span class="water">}}}</span>......|<br>
+           |......<span class="water">{{{{{{{}}}}}}}</span>......|<br>
+           |..........................|<br>
+           ----------------------------</p>
+           <p class="nethackStats"></p>
+      </div>
       <div id="result">
       </div>
       <div id="nethack">

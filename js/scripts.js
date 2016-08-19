@@ -30,6 +30,7 @@ var pingPong = function(topNum, sillyWords){
 $(document).ready(function(){
 
   var sillyWordArray = [["ping", "pong"], ["fiddle", "faddle"], ["hoity", "toity"], ["hunky", "dory"], ["boogie", "woogie"], ["jiggery", "pokery"]];
+  var scrollArray = [["ZELGO", "MER"], ["DAIYEN", "FOOELS"], ["ELBIB", "YLOH"], ["VENZAR", "BORGAVVE"], ["KERNOD", "WEL"], ["ELAM", "EBOW"], ["DUAM", "XNAHT"], ["HACKEM", "MUCHE"], ["VELOX","NEB"], ["FOOBIE", "BLETCH"], ["GARVEN", "DEH"]];
   //create select box
   for(var i = 0; i < sillyWordArray.length; i++){
     $("select#sillyWord").append("<option value='" + i + "'>" + sillyWordArray[i][0] + " " + sillyWordArray[i][1] + "</option>");

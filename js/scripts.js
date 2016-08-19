@@ -1,4 +1,6 @@
 //<!-- Back End -->
+var hitPoints;
+
 var checkNum = function(number, sillyWords){
   if(number % 15 === 0){
     return sillyWords[0] + sillyWords[1];
@@ -25,6 +27,23 @@ var pingPong = function(topNum, sillyWords){
   }
   return pingPongArray;
 };
+
+var getOutcome = function(){
+  var outcomeArray = ["Nothing happens.",
+  "This is a scroll of gold detection! You now know there is a bunch of gold somewhere else.",
+  "This is a scroll of scare monster. The wizard looks scared!",
+  "This is a scroll of amnesia. Who is this wizard and why are you fighting them?",
+  "This is a scroll of destroy armor.  I guess you're naked now. And still fighting a wizard.",
+  "This is a scroll of fire. You throw it at the wizard!",
+  "This is a scroll of earth. A boulder drops on the wizard!"]
+  var wizardTurn = ["The wizard hits!", "The wizard misses."]
+  var outcomeNum = Math.floor(Math.random()*outcomeArray.length)
+  var wizardDed = false;
+  if(outcomeNum > outcomeArray.length - 3 && Math.round(Math.random())){
+      wizardDed = true;
+  }
+  return [outcomeArray[outcomeNum], wizardDed];
+}
 
 //<!-- Front End  -->
 $(document).ready(function(){
@@ -66,8 +85,21 @@ $(document).ready(function(){
       }
       htmlString += (array[i]);
     }
-    htmlString += '" <button class="btn btn-default">More</button></p>';
+    htmlString += '" <button id="more" class="btn btn-default">More</button></p>';
     $("#result").addClass("nethackResult").removeClass("normalResult").append(htmlString);
+    $("#more").click(function(event){
+      event.preventDefault();
+      var outcome = getOutcome();
+      var outcomeString = "<p>" + outcome[0] + " <button id='again' class='btn btn-default'>Try again</button>";
+      $("div#result").empty().html(outcomeString);
+      $("#again").click(function(event){
+        event.preventDefault();
+        $("div#result").empty().hide();
+        $("form#inputForm")[0].reset()
+        $(".hideOnAttack").show();
+      });
+    });
+    $(".hideOnAttack").hide();
   }
 
   function createRegularDisplay(array){

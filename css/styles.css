@@ -32,6 +32,10 @@ span.silly{
   color: #fff;
 }
 
+#nethackLink {
+  display: none;
+}
+
 /******* Media Queries *******/
 
 @media screen and (min-width: 768px) {
@@ -41,6 +45,7 @@ span.silly{
     margin-top: 2rem;
     margin-bottom: 2rem;
     border-radius: 5px;
+    padding-bottom: 2rem;
   }
 
   body {

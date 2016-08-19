@@ -1,5 +1,5 @@
 //<!-- Back End -->
-var hitPoints;
+
 
 var checkNum = function(number, sillyWords){
   if(number % 15 === 0){
@@ -28,7 +28,7 @@ var pingPong = function(topNum, sillyWords){
   return pingPongArray;
 };
 
-var getOutcome = function(){
+var getNethackOutcome = function(){
   var outcomeArray = ["Nothing happens.",
   "This is a scroll of gold detection! You now know there is a bunch of gold somewhere else.",
   "This is a scroll of scare monster. The wizard looks scared!",
@@ -36,18 +36,22 @@ var getOutcome = function(){
   "This is a scroll of destroy armor.  I guess you're naked now. And still fighting a wizard.",
   "This is a scroll of fire. You throw it at the wizard!",
   "This is a scroll of earth. A boulder drops on the wizard!"]
-  var wizardTurn = ["The wizard hits!", "The wizard misses."]
   var outcomeNum = Math.floor(Math.random()*outcomeArray.length)
   var wizardDed = false;
+  var youDed=false;
   if(outcomeNum > outcomeArray.length - 3 && Math.round(Math.random())){
       wizardDed = true;
   }
-  return [outcomeArray[outcomeNum], wizardDed];
+  if(!wizardDed){
+    wizardTurn = Math.round(Math.random());
+  }
+  return [outcomeArray[outcomeNum], wizardDed, wizardTurn];
 }
 
 //<!-- Front End  -->
 $(document).ready(function(){
   var nethackToggle = false;
+  var hitPoints = 10;
   var sillyWordArray = [["ping", "pong"], ["fiddle", "faddle"], ["hoity", "toity"], ["hunky", "dory"], ["boogie", "woogie"], ["jiggery", "pokery"]];
   var scrollArray = [["ZELGO", "MER"], ["DAIYEN", "FOOELS"], ["ELBIB", "YLOH"], ["VENZAR", "BORGAVVE"], ["KERNOD", "WEL"], ["ELAM", "EBOW"], ["DUAM", "XNAHT"], ["HACKEM", "MUCHE"], ["VELOX","NEB"], ["FOOBIE", "BLETCH"], ["GARVEN", "DEH"]];
   //create select box
@@ -89,14 +93,33 @@ $(document).ready(function(){
     $("#result").addClass("nethackResult").removeClass("normalResult").append(htmlString);
     $("#more").click(function(event){
       event.preventDefault();
-      var outcome = getOutcome();
-      var outcomeString = "<p>" + outcome[0] + " <button id='again' class='btn btn-default'>Try again</button>";
+      var outcome = getNethackOutcome();
+      var outcomeString = "<p>" + outcome[0];
+      if(outcome[1]){
+        outcomeString += "<br>The wizard dies. You have defeated the Wizard of Yendor! Congratulations! Not that he has the Amulet of Yendor, of course, but still, good job.";
+        $("#wizard").text("%");
+        hitPoints = 10;
+      } else {
+        if(wizardTurn){
+          outcomeString += "<br>The wizard hits!";
+          hitPoints--;
+          if(hitPoints === 0){
+            outcomeString += "You died.";
+            $("#player").text("%");
+          }
+        } else {
+          outcomeString += "<br>The wizard misses!";
+        }
+      }
+      $("#hitPoints").text(hitPoints);
+      outcomeString +="</p><button id='again' class='btn btn-default'>Try again</button>";
       $("div#result").empty().html(outcomeString);
       $("#again").click(function(event){
         event.preventDefault();
         $("div#result").empty().hide();
         $("form#inputForm")[0].reset()
         $(".hideOnAttack").show();
+        $("#wizard, #player").text("@");
       });
     });
     $(".hideOnAttack").hide();

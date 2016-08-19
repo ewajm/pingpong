@@ -27,6 +27,10 @@ var pingPong = function(topNum){
 
 //<!-- Front End  -->
 $(document).ready(function(){
+  var sillyWordArray = [["ping", "pong"], ["fiddle", "faddle"], ["hoity", "toity"], ["hunky", "dory"], ["boogie", "woogie"], ["jiggery", "pokery"]];
+  for(var i = 0; i < sillyWordArray.length; i++){
+    $("select#sillyWord").append("<option value='" + i + "'>" + sillyWordArray[i][0] + " " + sillyWordArray[i][1] + "</option>");
+  }
   $("form#inputForm").submit(function(event){
     event.preventDefault();
     var topNum = parseInt($("input#input").val());

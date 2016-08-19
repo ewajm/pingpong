@@ -13,14 +13,22 @@
     <!-- Simple Form Input for Testing -->
     <div class="container">
       <h1>Let's Ping Pong!</h1>
-      <form id="inputForm">
+      <form id="inputForm" class="form-inline">
         <div class="form-group">
-          <label for="input">Enter a number:</label>
-          <input id="input" class="form-control" type="number" required>
+          <label for="numInput">Enter a number:</label>
+          <input id="numInput" class="form-control" type="number" required>
+        </div>
+        <div class="form-group">
+          <label for="sillyWord">Choose your word</label>
+          <select id="sillyWord" class="form-control">
+          </select>
         </div>
         <button type="submit" class="btn btn-primary">Game on!</button>
       </form>
       <div id="result">
+      </div>
+      <div id="nethack">
+        <p>Or how about something a little different</p>
       </div>
     </div>
 

@@ -1,5 +1,6 @@
 //<!-- Back End -->
 
+//checks each number and returns appropriate value
 var checkNum = function(number, sillyWords){
   if(number % 15 === 0){
     return sillyWords[0] + sillyWords[1];
@@ -12,6 +13,7 @@ var checkNum = function(number, sillyWords){
   }
 }
 
+//creates array to be output in front end
 var pingPong = function(topNum, sillyWords){
   var pingPongArray =[];
   var toPush;
@@ -80,6 +82,7 @@ $(document).ready(function(){
     clear();
   });
 
+  //switches between regular and nethack mode
   $("#displaySwitch").click(function(){
     nethackToggle = !nethackToggle;
     var displayArray=[["Let's Ping Pong!", "Let's Nethack!"],["Choose your words", "Scroll Labeled"], [sillyWordArray, scrollArray]];
@@ -141,7 +144,8 @@ $(document).ready(function(){
   //gets outcome from back end and processes it for display in front - runs on button click from result display
   function processNethackOutcome(){
     var outcome = getNethackOutcome();
-    var outcomeString = "<p>" + outcome[0];
+    var outcomeString = "<p>" + outcome[0]; //result of player turn
+    //wizard turn
     if(outcome[1]){
       outcomeString += "<br>The wizard dies. You have defeated the Wizard of Yendor! Congratulations!";
       $("#wizard").text("%");
@@ -160,6 +164,7 @@ $(document).ready(function(){
     }
     $("#hitPoints").text(hitPoints);
     outcomeString +="</p><button id='again' class='btn btn-default'>Try again</button>";
+    //print outcome string
     $("div#result").empty().html(outcomeString);
     $("#again").click(function(){
       clear();

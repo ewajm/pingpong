@@ -38,6 +38,7 @@ var getNethackOutcome = function(){
   var outcomeNum = Math.floor(Math.random()*outcomeArray.length)
   var wizardDed = false;
   var youDed=false;
+  var wizardTurn;
   if(outcomeNum > outcomeArray.length - 3 && Math.round(Math.random())){
       wizardDed = true;
   }
@@ -146,7 +147,7 @@ $(document).ready(function(){
       $("#wizard").text("%");
       hitPoints = 10;
     } else {
-      if(wizardTurn){
+      if(outcome[2]){
         outcomeString += "<br>The wizard hits!";
         hitPoints--;
         if(hitPoints === 0){

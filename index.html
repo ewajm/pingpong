@@ -9,8 +9,37 @@
     <title>Fun with Word Flip-Flop</title>
   </head>
   <body class>
+    <!--nethack character creator modal-->
+    <div class="modal fade" id="nethackCreateChar" tabindex="-1" role="dialog" aria-labelledby="createCharLabel">
+      <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="createCharLabel">Who are you?</h4>
+          </div>
+          <div class="modal-body">
+            <form>
+             <div class="form-group">
+               <label for="player-name-input" class="control-label">Name:</label>
+               <input type="text" class="form-control" id="player-name-input">
+             </div>
+             <div class="form-group">
+               <label for="player-role-select" class="control-label">Pick a role for your character:</label>
+               <select id="player-role-select" class="form-control">
+               </select>
+             </div>
+           </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary">More</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="regularMode container">
       <h1>Let's Ping Pong!</h1>
+      <p class= "nethack hideOnAttack">Hello <span class="playerName"></span>, welcome to Nethack! You are a neutral human <span class="playerRole"></span></p>
       <p class= "nethack hideOnAttack">You've found the Wizard of Yendor!</p>
       <p class = "nethack hideOnAttack">The Wizard of Yendor can only be attacked with scrolls. Choose a scroll:</P>
       <form id="inputForm" class="hideOnAttack form-inline">
@@ -41,7 +70,7 @@
            |..........................|<br>
            ----------------------------</p>
            <p class="nethackStats">
-             <span id="playerName">Name the CodeWizard</span> St:12 Dx:12 Co:16 In:25 Ch:6 Neutral <br>
+             <span class="playerName">Name</span> the Code<span class="playerRole"></span> St:12 Dx:12 Co:12 In:12 Ch:6 Neutral <br>
              Dlvl:Intro Week:3 $:0 HP:<span id="hitPoints">10</span>(10) AC:0
            </p>
       </div>

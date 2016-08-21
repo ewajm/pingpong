@@ -1,5 +1,8 @@
 //<!-- Back End -->
 
+/****************************************************
+              Regular PingPong Functions
+****************************************************/
 //checks each number and returns appropriate value
 var checkNum = function(number, sillyWords){
   if(number % 15 === 0){
@@ -29,6 +32,23 @@ var pingPong = function(topNum, sillyWords){
   return pingPongArray;
 };
 
+/****************************************************
+                  Nethack Functions
+****************************************************/
+function Player(name, role){
+  this.playerName = name;
+  this.role = role;
+  this.hitPoints = 10;
+}
+
+Player.prototype.onHit = function() {
+  this.hitPoints--;
+}
+
+Player.prototype.reset = function() {
+  this.hitPoints = 10;
+}
+
 var getNethackOutcome = function(){
   var outcomeArray = ["Nothing happens.",
   "This is a scroll of gold detection! You now know there is a bunch of gold somewhere else.",
@@ -53,7 +73,7 @@ var getNethackOutcome = function(){
 //<!-- Front End  -->
 $(document).ready(function(){
   var nethackToggle = false;
-  var hitPoints;
+  var newPlayer;
   //original array
   var sillyWordArray = [["ping", "pong"], ["fiddle", "faddle"], ["hoity", "toity"], ["hunky", "dory"], ["boogie", "woogie"], ["jiggery", "pokery"]];
   //scroll array for nethack
@@ -85,6 +105,38 @@ $(document).ready(function(){
   //switches between regular and nethack mode
   $("#displaySwitch").click(function(){
     nethackToggle = !nethackToggle;
+    if(nethackToggle){
+      //create select for nethack modal
+      var roleArray = ["Archaeologist", "Barbarian", "Caveman", "Healer", "Knight", "Monk", "Priest", "Ranger", "Rogue", "Samurai", "Tourist", "Valkyrie", "Wizard"];
+      for(i = 0; i < roleArray.length; i++){
+        $("select#player-role-select").append("<option>" + roleArray[i] + "</option>");
+      }
+      $("#player-name-input").text("");
+      $('#nethackCreateChar').modal();
+      //reset nethackToggle because if someone simply closes the modal the display will not change
+      nethackToggle = false;
+    } else {
+      displayToggle();
+    }
+  });
+
+  $(".modal-footer button").click(function(){
+    $("#player-name-input").parent().removeClass("has-error");
+    var inputName = $("#player-name-input").val();
+    var inputRole = $("#player-role-select").val();
+    if(inputName){
+      nethackToggle = true;
+      $('#nethackCreateChar').modal('hide');
+      newPlayer = new Player(inputName, inputRole);
+      $("span.playerName").text(newPlayer.playerName);
+      $("span.playerRole").text(newPlayer.role);
+      displayToggle();
+    } else{
+       $("#player-name-input").parent().addClass("has-error");
+    }
+  });
+
+  function displayToggle(){
     var displayArray=[["Let's Ping Pong!", "Let's Nethack!"],["Choose your words", "Scroll Labeled"], [sillyWordArray, scrollArray]];
     var displayIndex = (nethackToggle ? 1 : 0);
     $("body").toggleClass("nethackMode");
@@ -96,12 +148,7 @@ $(document).ready(function(){
     $("#wordSelectLabel").text(displayArray[1][displayIndex]);
     generateSelect(displayArray[2][displayIndex]);
     clear();
-    if(nethackToggle){
-      hitPoints =10;
-      var playerName = prompt("What is your name?");
-      $("#playerName").text(playerName + " the CodeWizard");
-    }
-  });
+  }
 
   function generateSelect(array){
     for(i = 0; i < array.length; i++){
@@ -144,30 +191,36 @@ $(document).ready(function(){
   //gets outcome from back end and processes it for display in front - runs on button click from result display
   function processNethackOutcome(){
     var outcome = getNethackOutcome();
+    var needReset = false;
     var outcomeString = "<p>" + outcome[0]; //result of player turn
     //wizard turn
     if(outcome[1]){
       outcomeString += "<br>The wizard dies. You have defeated the Wizard of Yendor! Congratulations!";
       $("#wizard").text("%");
-      hitPoints = 10;
+      needReset = true;
     } else {
       if(outcome[2]){
         outcomeString += "<br>The wizard hits!";
-        hitPoints--;
-        if(hitPoints === 0){
+        newPlayer.onHit();
+        if(newPlayer.hitPoints === 0){
           outcomeString += "You died.";
           $("#player").text("%");
+          needReset=true;
         }
       } else {
         outcomeString += "<br>The wizard misses!";
       }
     }
-    $("#hitPoints").text(hitPoints);
+    $("#hitPoints").text(newPlayer.hitPoints);
     outcomeString +="</p><button id='again' class='btn btn-default'>Try again</button>";
     //print outcome string
     $("div#result").empty().html(outcomeString);
     $("#again").click(function(){
       clear();
+      if(needReset){
+        newPlayer.reset();
+        $("#hitPoints").text(newPlayer.hitPoints);
+      }
       $(".hideOnAttack").show();
     });
   }

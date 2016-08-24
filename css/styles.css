@@ -3,11 +3,23 @@ body {
   text-align: center;
 }
 
-h1 {
+#displaySwitch {
+  margin: 2rem auto;
+  display: block;
+}
+
+.nethack {
+  display: none;
+}
+
+/*****regular mode specific ****/
+
+.regularMode {
+  background-color: #d0b783;
   color: #6C272E;
 }
 
-div#result{
+div.normalResult{
   padding: 2rem;
   margin: 2rem;
   border-radius: 5px;
@@ -31,8 +43,34 @@ span.silly{
   color: #fff;
 }
 
-#nethackLink {
-  display: none;
+/***** Nethack Mode specific *******/
+.nethackMode {
+  background-color: black;
+  color: white;
+  text-align: left;
+  font-family: monospace;
+}
+
+.nethackRoom {
+  font-family: monospace;
+  text-align: center;
+}
+
+.water {
+  color: blue;
+}
+
+#wizard {
+  color: magenta;
+}
+
+#nethackDisplay {
+  width: 50%;
+  margin: 2rem auto;
+}
+
+.nethackResult: {
+  color: white;
 }
 
 /******* Media Queries *******/
@@ -40,7 +78,6 @@ span.silly{
 @media screen and (min-width: 768px) {
 
   .container {
-    background-color: #d0b783;
     margin-top: 2rem;
     margin-bottom: 2rem;
     border-radius: 5px;

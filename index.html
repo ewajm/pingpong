@@ -6,29 +6,75 @@
     <script src='js/jquery-3.1.0.js'></script>
     <script src='js/bootstrap.min.js' type='text/javascript'></script>
     <script src='js/scripts.js'></script>
-    <title>Ping Pong</title>
+    <title>Fun with Word Flip-Flop</title>
   </head>
-  <body>
-    <div class="container">
-      <h1>Let's Ping Pong!</h1>
-      <form id="inputForm" class="form-inline">
-        <div class="form-group">
-          <label for="numInput">Enter a number:</label>
-          <input id="numInput" class="form-control" type="number" required>
+  <body class>
+    <!--nethack character creator modal-->
+    <div class="modal fade" id="nethackCreateChar" tabindex="-1" role="dialog" aria-labelledby="createCharLabel">
+      <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="createCharLabel">Who are you?</h4>
+          </div>
+          <div class="modal-body">
+            <form>
+             <div class="form-group">
+               <label for="player-name-input" class="control-label">Name:</label>
+               <input type="text" class="form-control" id="player-name-input">
+             </div>
+             <div class="form-group">
+               <label for="player-role-select" class="control-label">Pick a role for your character:</label>
+               <select id="player-role-select" class="form-control">
+               </select>
+             </div>
+           </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary">More</button>
+          </div>
         </div>
+      </div>
+    </div>
+
+    <div class="regularMode container">
+      <h1>Let's Ping Pong!</h1>
+      <p class= "nethack hideOnAttack">Hello <span class="playerName"></span>, welcome to Nethack! You are a neutral human <span class="playerRole"></span></p>
+      <p class= "nethack hideOnAttack">You've found the Wizard of Yendor!</p>
+      <p class = "nethack hideOnAttack">The Wizard of Yendor can only be attacked with scrolls. Choose a scroll:</P>
+      <form id="inputForm" class="hideOnAttack form-inline">
         <div class="form-group">
-          <label for="sillyWord">Choose your word</label>
-          <select id="sillyWord" class="form-control">
+          <label for="wordSelect" id="wordSelectLabel">Choose your words:</label>
+          <select id="wordSelect" class="form-control">
           </select>
         </div>
-        <button type="submit" class="btn btn-primary">Game on!</button>
-        <button id="clear" class="btn btn-primary">Clear</button>
+        <div class="form-group">
+          <label for="numInput">Choose number:</label>
+          <input id="numInput" class="form-control" type="number" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Onwards!</button>
+        <button id="clear" class="btn btn-danger">Clear</button>
       </form>
-      <div id="result">
+      <div id="result" class="normalResult">
       </div>
-      <div id="nethackLink">
-        <p>Or how about something a little different</p>
+      <div id="nethackDisplay" class="nethack">
+        <p class="nethackRoom">----------------------------<br>
+           |..........................|<br>
+           |..>...<span class="water">{{{{{{{}}}}}}}</span>......|<br>
+           |......<span class="water">{{{</span>........<span class="water">}}}</span>......|<br>
+           |......<span class="water">{{</span>..........<span class="water">}}</span>......|<br>
+           |......<span class="water">{{</span>..<span id="player">@</span>....<span id="wizard">@</span>..<span class="water">}}</span>......|<br>
+           |......<span class="water">{{</span>..........<span class="water">}}</span>......|<br>
+           |......<span class="water">{{{</span>........<span class="water">}}}</span>......|<br>
+           |......<span class="water">{{{{{{{}}}}}}}</span>......|<br>
+           |..........................|<br>
+           ----------------------------</p>
+         <p class="nethackStats">
+           <span class="playerName">Name</span> the Code<span class="playerRole"></span> St:12 Dx:12 Co:12 In:12 Ch:6 Neutral <br>
+           Dlvl:Intro Week:3 $:0 HP:<span id="hitPoints">10</span>(10) AC:0
+         </p>
       </div>
+      <button id="displaySwitch" class = "hideOnAttack btn btn-default">Ready to try something different?</button>
     </div>
   </body>
 </html>

@@ -165,7 +165,7 @@ $(document).ready(function(){
   function createRegularDisplay(array){
     for(var i = 0; i < array.length; i++){
       var resultClass;
-      if(!parseInt(array[i])) {
+      if(isNaN(array[i])) {
         resultClass = "silly"
       } else {
         resultClass = "number"
